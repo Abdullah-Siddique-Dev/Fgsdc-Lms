@@ -1,0 +1,104 @@
+/* Performance Optimized CSS - Load First */
+/* Critical above-the-fold styles only */
+
+/* CSS Variables - Loaded once */
+:root {
+  --primary: #6a3093;
+  --secondary: #004e92;
+  --accent: #f7c744;
+  --bg: #ffffff;
+  --text-dark: #111;
+  --text-light: #fff;
+  --glow: 0 0 15px rgba(247, 199, 68, 0.7);
+  --nav-glow: 0 0 20px rgba(106, 48, 147, 0.6);
+}
+
+/* Critical Reset - Minimal */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Critical Navigation Styles */
+nav {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 0.7rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+  box-shadow: var(--nav-glow);
+  will-change: transform;
+  /* IMPORTANT: Do NOT use contain: layout/style/paint here.
+     It creates an isolated stacking context that clips the mobile
+     sidebar (a child of nav) and prevents it from appearing above
+     the hero section. overflow: visible is required for the same reason. */
+  overflow: visible;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.logo-img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Critical Hero Section */
+.home-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: 140px;
+}
+
+/* Defer non-critical animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Performance: Use transform instead of position changes */
+.smooth-transform {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Performance: Contain layout shifts */
+.contain-layout {
+  contain: layout style paint;
+}
+
+/* Performance: GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}

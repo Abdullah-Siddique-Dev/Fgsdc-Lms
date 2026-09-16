@@ -1,0 +1,2436 @@
+@import url('../main.css?v=1010');
+
+   /* Custom Scrollbar */
+   ::-webkit-scrollbar {
+    width: 12px;
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary), var(--secondary));
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  :root {
+    --primary: #6a3093;  /* Purple */
+    --secondary: #004e92; /* Blue */
+    --accent: #f7c744;
+    --bg: #ffffff;
+    --text-dark: #111;
+    --text-light: #fff;
+    --glow: 0 0 15px rgba(247, 199, 68, 0.7);
+    --nav-glow: 0 0 20px rgba(106, 48, 147, 0.6);
+    --green-glow: 0 0 20px rgba(76, 175, 80, 0.5);
+    --green-particle: rgba(76, 175, 80, 0.8);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #f1f1f1;
+  }
+
+  /* Glowing Gradient Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at center,
+      rgba(106, 48, 147, 0.1) 0%,
+      rgba(0, 78, 146, 0.1) 50%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: -2;
+    animation: rotateBg 60s linear infinite;
+  }
+
+  @keyframes rotateBg {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Navigation */
+  nav {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 1.5rem 3rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    box-shadow: var(--nav-glow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 3rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    background: rgba(0, 45, 98, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  nav.scrolled .logo-img {
+    height: 80px;
+    padding: 5px;
+  }
+
+  nav.scrolled .logo-main {
+    font-size: 1.5rem;
+  }
+
+  nav.scrolled .logo-sub {
+    font-size: 0.8rem;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+
+  .logo-img {
+    height: 72px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+  }
+
+  .logo-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  /* Logo hover effects removed - handled by navbar-override.css */
+  .logo-main::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .logo-container:hover .logo-main::after {
+    display: none !important;
+  }
+
+  .logo-sub {
+    font-size: 1rem;
+    color: var(--accent);
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .logo-container::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .logo-container:hover::before {
+    display: none !important;
+  }
+
+  ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+
+  ul.nav-links li {
+    position: relative;
+    perspective: 1000px;
+  }
+
+  ul.nav-links li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 10px 12px;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  ul.nav-links li a .nav-icon {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    opacity: 0.9;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  ul.nav-links li a:hover .nav-icon {
+    transform: translateY(-8px) scale(1.1);
+    opacity: 1;
+    color: var(--accent);
+    text-shadow: var(--glow);
+  }
+
+  ul.nav-links li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255,255,255,0.15), 
+      transparent);
+    transform: translateX(-150%) skewX(25deg);
+    transition: transform 0.6s ease;
+  }
+
+  ul.nav-links li a:hover::before {
+    transform: translateX(150%) skewX(25deg);
+  }
+
+  ul.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 0 0 8px 8px;
+  }
+
+  ul.nav-links li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    box-shadow: var(--glow);
+  }
+
+  /* 3D Hover Effect */
+  ul.nav-links li a .nav-text {
+    display: inline-block;
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
+  }
+
+  ul.nav-links li:hover a .nav-text {
+    transform: rotateX(360deg);
+  }
+
+  /* Mobile menu button */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.4s ease;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .mobile-menu-btn:hover {
+    transform: rotate(180deg);
+    color: var(--accent);
+    background: rgba(255,255,255,0.2);
+  }
+
+  .nav-text {
+    margin-left: 13px;
+  }
+
+  /* Main Content */
+  main {
+    padding-top: 180px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  /* Header Section */
+  .facilities-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+  }
+
+  .facilities-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+  }
+
+  .facilities-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: var(--glow);
+  }
+
+  .facilities-header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Building Showcase */
+  .building-showcase {
+    margin: 80px 0;
+    position: relative;
+  }
+
+  .showcase-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--secondary);
+    position: relative;
+  }
+
+  .showcase-title::before,
+  .showcase-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .showcase-title::before {
+    left: 0;
+  }
+
+  .showcase-title::after {
+    right: 0;
+  }
+
+  .building-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 30px;
+  }
+
+  .building-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .building-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    transform: none !important;
+  }
+
+  .building-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: none;
+    transform: none !important;
+  }
+
+  .building-card:hover .building-img {
+    transform: none !important;
+  }
+
+  .building-info {
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+    background: white;
+  }
+
+  .building-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+    position: relative;
+  }
+
+  .building-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  .building-info p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  /* Facilities Section */
+  .facilities-section {
+    margin: 80px 0;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--secondary);
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: var(--glow);
+  }
+
+  .facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .facility-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+    position: relative;
+  }
+
+  .facility-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2), 0 0 30px rgba(106, 48, 147, 0.3);
+  }
+
+  .facility-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50%;
+    font-size: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.5s ease;
+  }
+
+  .facility-card:hover .facility-icon {
+    transform: rotateY(180deg) scale(1.1);
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    box-shadow: var(--glow);
+  }
+
+  .facility-content {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .facility-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+
+  .facility-content p {
+    color: #ffffff;
+    line-height: 1.6;
+  }
+
+  /* Campus Gallery - Simple Grid */
+  .gallery-container {
+    margin: 40px 0;
+    padding: 0 20px;
+  }
+
+  .gallery-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--secondary);
+  }
+
+  .gallery-slider {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 30px !important;
+    transition: none !important;
+    height: auto !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+
+  /* campus-slide: renamed from gallery-slide to avoid main.css conflict */
+  .campus-slide,
+  .gallery-slider .campus-slide {
+    min-width: auto !important;
+    width: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    background: white !important;
+    transition: box-shadow 0.3s ease !important;
+    transform: none !important;
+    display: block !important;
+    opacity: 1 !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+  }
+
+  .campus-slide:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  }
+
+  .gallery-img {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    transition: none !important;
+    transform: none !important;
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .gallery-caption {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    background: white !important;
+    color: #333 !important;
+    padding: 16px 20px !important;
+    transform: none !important;
+    transition: none !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .campus-slide .gallery-caption h3 {
+    color: var(--secondary) !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .campus-slide .gallery-caption p {
+    color: #555 !important;
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* IT lab gallery-item caption — stays hidden until hover (intentional) */
+  .gallery-item .gallery-caption {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7)) !important;
+    color: white !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.4s ease !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .gallery-item:hover .gallery-caption {
+    transform: translateY(0) !important;
+  }
+
+  /* Title stays white, sub-text gets yellow for contrast */
+  .gallery-item .gallery-caption h4 {
+    color: #ffffff !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .gallery-item .gallery-caption p {
+    color: #f7c744 !important;
+    font-size: 0.9rem !important;
+    opacity: 1 !important;
+  }
+
+  .gallery-caption h3 {
+    color: var(--secondary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .gallery-caption p {
+    color: #555;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Custom Cursor */
+  .custom-cursor {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+  }
+
+  .custom-cursor.active {
+    width: 60px;
+    height: 60px;
+    background: rgba(247, 199, 68, 0.3);
+  }
+
+  /* Floating Particles */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .particle {
+    position: absolute;
+    background: var(--green-particle);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatParticle linear infinite;
+  }
+
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(100px);
+      opacity: 0;
+    }
+  }
+
+  /* Scroll indicator removed */
+
+  /* Laser Effects */
+  .laser {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .laser-beam {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: laserScan 8s linear infinite;
+    opacity: 0.7;
+  }
+
+  .laser-beam:nth-child(1) {
+    top: 20%;
+    animation-delay: 0s;
+  }
+
+  .laser-beam:nth-child(2) {
+    top: 50%;
+    animation-delay: 2s;
+  }
+
+  .laser-beam:nth-child(3) {
+    top: 80%;
+    animation-delay: 4s;
+  }
+
+  @keyframes laserScan {
+    0% {
+      left: -100%;
+      width: 100%;
+    }
+    50% {
+      width: 50%;
+    }
+    100% {
+      left: 100%;
+      width: 100%;
+    }
+  }
+
+  /* Holographic Effect - DISABLED */
+  .holographic-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holographic-card::before {
+    display: none !important;
+  }
+
+  @keyframes holographic {
+    0% {
+      transform: none;
+    }
+    100% {
+      transform: none;
+    }
+  }
+
+  /* GLOBAL: Disable all transforms and animations on facility cards */
+  .facility-card,
+  .facility-card *,
+  .facility-card::before,
+  .facility-card::after,
+  .holographic-card,
+  .holographic-card *,
+  .holographic-card::before,
+  .holographic-card::after {
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Mobile Navigation Styles - REMOVED - Using mobile-nav-final.css instead */
+
+
+/* Footer uses footer-override.css - removed all conflicting styles */
+
+
+
+
+/* Laser Enhanced Section */
+.laser-enhanced {
+margin: 80px 0;
+}
+
+.laser-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+}
+
+.laser-card {
+background: rgba(255,255,255,0.1);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 30px;
+position: relative;
+overflow: hidden;
+border: 1px solid rgba(255,255,255,0.2);
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.laser-content {
+position: relative;
+z-index: 2;
+}
+
+.laser-icon {
+font-size: 2.5rem;
+color: var(--accent);
+margin-bottom: 20px;
+text-shadow: var(--glow);
+}
+
+.laser-card h3 {
+font-size: 1.5rem;
+margin-bottom: 15px;
+color: white;
+}
+
+.laser-card p {
+color: rgba(255,255,255,0.8);
+line-height: 1.6;
+}
+
+.laser-card .laser-beam {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--accent), transparent);
+box-shadow: 0 0 10px var(--accent);
+animation: laserScan 4s linear infinite;
+}
+
+
+
+/* Image Fallbacks */
+img {
+object-fit: cover;
+}
+
+img[src=""], 
+img:not([src]) {
+background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+color: #666;
+font-size: 0.8rem;
+}
+
+img[src=""].building-img::after, 
+img:not([src]).building-img::after {
+content: 'Building Image';
+}
+
+img[src=""].gallery-img::after, 
+img:not([src]).gallery-img::after {
+content: 'Gallery Image';
+}
+
+#Black{
+color: black;
+}
+
+
+/* Removed duplicate :root - using main.css variables */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: #f0f8ff;
+    min-height: 100vh;
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* Facilities Section */
+  .facilities-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 70px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header h2 {
+    font-size: 3.2rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  /* Simple Facility Card */
+  .facility-card {
+    background: #003366;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    height: auto;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    transform: none !important;
+  }
+
+  .facility-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    transform: none !important;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: none;
+    transform: none !important;
+    flex-shrink: 0;
+  }
+
+  .facility-card:hover .card-image {
+    transform: none !important;
+  }
+
+  .card-content {
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+    background: #003366;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: white;
+    position: relative;
+  }
+
+  .card-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  .card-content p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .card-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), #ffd700);
+    color: #003366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 3;
+  }
+
+  /* Remove particle effects */
+  .hover-particles {
+    display: none;
+  }
+
+  /* Remove floating labels */
+  .floating-label {
+    display: none;
+  }
+
+
+
+
+   .cursor-circle {
+          position: fixed;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: rgba(0, 0, 255, 0.5);
+          pointer-events: none; /* Allows clicks to go through the circle */
+          transform: translate(-50%, -50%);
+          z-index: 9999;
+      }
+
+
+
+
+      /* IT Lab Section Styles */
+.it-lab-section {
+padding: 100px 0;
+background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+position: relative;
+overflow: hidden;
+}
+
+.it-lab-section::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+opacity: 0.3;
+z-index: 0;
+}
+
+.it-lab-container {
+max-width: 1400px;
+margin: 0 auto;
+padding: 0 30px;
+position: relative;
+z-index: 1;
+}
+
+.it-lab-features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 30px;
+margin-bottom: 60px;
+}
+
+.feature-card {
+background: white;
+border-radius: 15px;
+padding: 30px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+transition: all 0.5s ease;
+position: relative;
+overflow: hidden;
+z-index: 1;
+}
+
+.feature-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+opacity: 0;
+z-index: -1;
+transition: opacity 0.5s ease;
+}
+
+.feature-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 40px rgba(0,0,0,0.1), 0 0 30px rgba(106, 48, 147, 0.1);
+}
+
+.feature-card:hover::before {
+opacity: 0.05;
+}
+
+.feature-icon {
+width: 70px;
+height: 70px;
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.8rem;
+margin-bottom: 20px;
+transition: all 0.5s ease;
+}
+
+.feature-card:hover .feature-icon {
+transform: rotateY(180deg) scale(1.1);
+box-shadow: 0 0 20px rgba(106, 48, 147, 0.3);
+}
+
+.feature-card h3 {
+font-size: 1.4rem;
+margin-bottom: 15px;
+color: var(--primary);
+transition: all 0.3s ease;
+}
+
+.feature-card:hover h3 {
+color: var(--secondary);
+}
+
+.feature-card p {
+color: #666;
+line-height: 1.6;
+transition: all 0.3s ease;
+}
+
+.feature-card:hover p {
+color: #444;
+}
+
+.it-lab-gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+perspective: 2000px;
+overflow: visible !important;
+}
+
+@keyframes galleryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-item {
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+position: relative;
+opacity: 0;
+animation: galleryFadeIn 0.8s ease forwards !important;
+animation-fill-mode: forwards !important;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.1s !important; }
+.gallery-item:nth-child(2) { animation-delay: 0.3s !important; }
+.gallery-item:nth-child(3) { animation-delay: 0.5s !important; }
+.gallery-item:nth-child(4) { animation-delay: 0.7s !important; }
+
+.gallery-item img {
+width: 100% !important;
+height: 300px !important;
+object-fit: cover !important;
+display: block !important;
+opacity: 1 !important;
+transition: transform 0.5s ease !important;
+}
+
+.gallery-item:hover img {
+transform: scale(1.05) !important;
+}
+
+.particle-overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+overflow: hidden;
+}
+
+.particle-overlay::before {
+  display: none !important;
+}
+
+.gallery-caption {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 25px;
+background: linear-gradient(transparent, rgba(0,0,0,0.7));
+color: white;
+transform: translateY(100%);
+transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+transform: translateY(0);
+}
+
+.gallery-caption h4 {
+font-size: 1.4rem;
+margin-bottom: 10px;
+color: #f7c744;
+}
+
+.gallery-caption p {
+font-size: 0.9rem;
+opacity: 1;
+color: #f7c744;
+}
+
+/* ==================== RESPONSIVE CSS ==================== */
+/* Medium Devices (992px to 1199px) */
+/* ==================== RESPONSIVE CSS ==================== */
+/* Navigation - Always Visible */
+nav {
+position: fixed !important;
+top: 0;
+width: 100%;
+z-index: 9998 !important; /* Below mobile menu */
+transition: all 0.3s ease;
+}
+
+/* Main Content Padding Adjustment */
+main {
+padding-top: 180px; /* Adjust based on your nav height */
+}
+
+/* Medium Devices (992px to 1199px) */
+@media (max-width: 1199px) {
+.container {
+  padding: 0 40px;
+}
+
+.facilities-header h1 {
+  font-size: 3rem;
+}
+
+.facility-card {
+  height: auto;
+}
+
+/* Fix icon visibility */
+.card-icon {
+  top: -25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+}
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) {
+.container {
+  padding: 0 30px;
+}
+
+nav {
+  padding: 1rem 2rem;
+}
+
+.logo-img {
+  height: 80px;
+}
+
+.logo-main {
+  font-size: 1.5rem;
+}
+
+.logo-sub {
+  font-size: 0.8rem;
+}
+
+main {
+  padding-top: 160px; /* Adjusted for tablet nav height */
+}
+
+.facilities-header h1 {
+  font-size: 2rem !important;
+}
+
+.section-title, .showcase-title, .gallery-title {
+  font-size: 1.8rem !important;
+}
+
+.section-header h2 {
+  font-size: 2rem !important;
+}
+
+.card-content h3,
+.facility-content h3,
+.building-info h3,
+.laser-card h3,
+.feature-card h3 {
+  font-size: 1.2rem !important;
+}
+
+.facilities-header p,
+.section-header p {
+  font-size: 1rem !important;
+}
+
+.card-content p,
+.facility-content p,
+.gallery-caption p {
+  font-size: 0.9rem !important;
+}
+
+.building-grid, .facilities-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.facility-card {
+  height: 380px;
+}
+
+.facility-icon {
+  width: 70px;
+  height: 70px;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+/* Adjust card icons */
+.card-icon {
+  top: -20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 1.3rem;
+}
+
+/* IT Lab Section */
+.it-lab-features {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.it-lab-gallery {
+  grid-template-columns: repeat(2, 1fr);
+}
+}
+
+/* Mobile Landscape/Small Tablets (576px to 767px) */
+@media (max-width: 767px) {
+nav {
+  padding: 0.8rem 1.5rem;
+}
+
+.logo-img {
+  height: 70px;
+}
+
+main {
+  padding-top: 140px; /* Adjusted for mobile nav height */
+}
+
+.facilities-header h1 {
+  font-size: 2rem;
+}
+
+.section-title, .showcase-title, .gallery-title {
+  font-size: 1.8rem;
+}
+
+.building-grid, .facilities-grid {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.facility-card {
+  height: auto;
+  min-height: unset;
+}
+
+.building-img, .card-image {
+  height: 260px;
+  object-position: center top;
+}
+
+.gallery-slider {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+ul.nav-links {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: rgba(0, 45, 98, 0.98);
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 100px;
+  transition: right 0.4s ease-out;
+  backdrop-filter: blur(10px);
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+ul.nav-links.active {
+  right: 0;
+}
+
+ul.nav-links li {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+ul.nav-links li a {
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+/* Fix icon visibility in cards */
+.facility-icon {
+  width: 65px;
+  height: 65px;
+  font-size: 1.6rem;
+  margin: 0 auto 15px;
+}
+
+.card-icon {
+  top: -15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+}
+
+/* IT Lab Section */
+.it-lab-features {
+  grid-template-columns: 1fr;
+}
+
+.it-lab-gallery {
+  grid-template-columns: 1fr;
+}
+
+.gallery-item img {
+  height: 220px;
+}
+}
+
+/* Mobile Portrait (575px and below) */
+@media (max-width: 575px) {
+.container {
+  padding: 0 20px;
+}
+
+nav {
+  padding: 0.7rem 1rem;
+}
+
+.logo-img {
+  height: 60px;
+}
+
+main {
+  padding-top: 130px; /* Adjusted for smaller mobile nav */
+}
+
+.logo-main {
+  font-size: 1.3rem;
+}
+
+.logo-sub {
+  font-size: 0.7rem;
+}
+
+.facilities-header h1 {
+  font-size: 1.6rem !important;
+}
+
+.section-title, .showcase-title, .gallery-title {
+  font-size: 1.4rem !important;
+}
+
+.section-header h2 {
+  font-size: 1.6rem !important;
+}
+
+.card-content h3,
+.facility-content h3,
+.building-info h3,
+.laser-card h3,
+.feature-card h3 {
+  font-size: 1.1rem !important;
+}
+
+.facilities-header p,
+.section-header p {
+  font-size: 0.95rem !important;
+}
+
+.card-content p,
+.facility-content p,
+.gallery-caption p {
+  font-size: 0.85rem !important;
+}
+
+.building-img, .card-image {
+  height: 200px;
+}
+
+.gallery-slider {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.gallery-img {
+  height: 200px;
+}
+
+ul.nav-links {
+  width: 250px;
+  padding-top: 90px;
+}
+
+.facility-icon {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+}
+
+/* Adjust floating icons */
+.floating-label {
+  font-size: 0.9rem;
+  bottom: 10px;
+  left: 10px;
+}
+
+/* Footer */
+.footer-container {
+  grid-template-columns: 1fr;
+}
+
+.footer-links {
+  grid-template-columns: 1fr;
+}
+}
+
+/* Small Mobile Devices (400px and below) */
+@media (max-width: 400px) {
+.facilities-header h1 {
+  font-size: 1.4rem !important;
+}
+
+.section-title, .showcase-title, .gallery-title {
+  font-size: 1.2rem !important;
+}
+
+.section-header h2 {
+  font-size: 1.4rem !important;
+}
+
+.card-content h3,
+.facility-content h3,
+.building-info h3,
+.laser-card h3,
+.feature-card h3 {
+  font-size: 1rem !important;
+}
+
+.facilities-header p,
+.section-header p {
+  font-size: 0.9rem !important;
+}
+
+.card-content p,
+.facility-content p,
+.gallery-caption p {
+  font-size: 0.8rem !important;
+}
+}
+
+.building-img, .card-image {
+  height: 180px;
+}
+
+.gallery-slider {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.gallery-img {
+  height: 220px;
+}
+
+ul.nav-links {
+  width: 220px;
+  padding-top: 80px;
+}
+
+/* Ensure full icon visibility */
+.card-icon {
+  top: -10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  font-size: 1rem;
+}
+
+
+/* ==================== COMPONENT-SPECIFIC FIXES ==================== */
+/* Navigation Behavior - Fixed and Always Visible */
+nav {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+box-shadow: var(--nav-glow);
+display: flex;
+align-items: center;
+backdrop-filter: blur(5px);
+border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+nav.scrolled {
+box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+background: rgba(0, 45, 98, 0.95);
+backdrop-filter: blur(10px);
+}
+
+/* Mobile Menu Button Animation */
+.mobile-menu-btn i {
+transition: transform 0.3s ease;
+}
+
+.mobile-menu-btn.active i.fa-bars {
+transform: rotate(90deg);
+}
+
+/* Image Handling - Fixed icon visibility */
+.card-image {
+width: 100%;
+object-fit: cover;
+object-position: center 30%;
+position: relative;
+}
+
+/* Icon Positioning - State of Art Facilities */
+.card-icon {
+position: absolute;
+top: -25px;
+right: 25px;
+width: 60px;
+height: 60px;
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.8rem;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+z-index: 3;
+transition: all 0.3s ease;
+}
+
+/* Card Layouts - Prevent content overflow */
+.building-card, .facility-card {
+display: flex;
+flex-direction: column;
+height: 100%;
+position: relative;
+overflow: visible;
+}
+
+.building-info, .facility-content, .card-content {
+flex-grow: 1;
+overflow: hidden;
+position: relative;
+z-index: 2;
+}
+
+/* Facility Icons - Ensure full visibility */
+.facility-icon {
+width: 80px;
+height: 80px;
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2rem;
+margin: 0 auto 20px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+position: relative;
+z-index: 2;
+}
+
+/* Text Contrast - Ensures readability */
+#Black, .Black,
+.card-content {
+color: var(--text-dark) !important;
+}
+
+/* Interactive Elements - Proper touch targets */
+a, button, [role="button"] {
+min-width: 48px;
+min-height: 48px;
+}
+
+/* Particle Effects - Disabled on mobile for performance */
+@media (max-width: 768px) {
+.particle {
+  display: none;
+}
+
+.holographic-card::before,
+.particle-overlay::before {
+  animation: none;
+  opacity: 0;
+}
+
+.laser-beam {
+  display: none;
+}
+
+.custom-cursor {
+  display: none;
+}
+
+/* Mobile menu styles removed - handled by mobile-nav-final.css */
+
+}
+
+/* ==================== SPECIAL FIXES FOR STATE OF ART FACILITIES ==================== */
+/* Ensure icons are fully visible on cards */
+.facility-card .card-image-container {
+position: relative;
+overflow: visible;
+}
+
+.facility-card .card-icon {
+position: absolute;
+top: 20px;
+right: 20px;
+transform: translateY(-50%);
+}
+
+/* Adjust image positioning to show icons */
+.facility-card .card-image {
+object-position: center 35%;
+}
+
+/* Hover effects for icons */
+.facility-card:hover .card-icon {
+transform: translateY(-50%) scale(1.1);
+box-shadow: 0 0 20px rgba(106, 48, 147, 0.5);
+}
+
+#hello{
+color: white;
+}
+
+  /* Base Styles */
+      .video-player {
+          width: 100%;
+          max-width: 700px;
+          margin: 20px auto;
+          background: #f0f2f5;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          font-family: 'Segoe UI', system-ui, sans-serif;
+      }
+
+      .video-container {
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 aspect ratio */
+          height: 0;
+          background: #000;
+      }
+
+      .video-container video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          object-fit: contain;
+      }
+
+      .controls {
+          padding: 12px 15px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: #fff;
+      }
+
+      .btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: none;
+          background: #4a6cf7;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+      }
+
+      .btn:hover {
+          background: #3a5ce9;
+          transform: scale(1.05);
+      }
+
+      .btn svg {
+          width: 18px;
+          height: 18px;
+      }
+
+      .progress-container {
+          flex: 1;
+          height: 6px;
+          background: #e0e3eb;
+          border-radius: 3px;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+      }
+
+      .progress-bar {
+          height: 100%;
+          background: #4a6cf7;
+          width: 0%;
+          border-radius: 3px;
+          transition: width 0.1s linear;
+      }
+
+      .time {
+          font-size: 13px;
+          color: #555;
+          min-width: 90px;
+          text-align: center;
+          font-variant-numeric: tabular-nums;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 600px) {
+          .video-player {
+              max-width: 100%;
+              border-radius: 0;
+              margin: 10px 0;
+          }
+          
+          .controls {
+              padding: 10px;
+              gap: 8px;
+          }
+          
+          .btn {
+              width: 32px;
+              height: 32px;
+          }
+          
+          .time {
+              font-size: 12px;
+              min-width: 80px;
+          }
+      }
+
+      @media (max-width: 400px) {
+          .controls {
+              flex-wrap: wrap;
+              padding-bottom: 15px;
+          }
+          
+          .progress-container {
+              order: 1;
+              width: 100%;
+              margin-top: 8px;
+          }
+      }
+
+
+      /* Add this to your CSS */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 15px;
+}
+
+/* Fix for the navigation on mobile */
+@media (max-width: 768px) {
+  nav {
+    padding: 0.8rem 15px !important;
+  }
+  
+  .nav-container {
+    padding: 0;
+  }
+  
+  .logo-img {
+    height: 60px !important;
+    
+  }
+  
+  .logo-main {
+    font-size: 1.2rem !important;
+  }
+  
+  .logo-sub {
+    font-size: 0.7rem !important;
+  }
+  
+  .building-card, 
+  .facility-card, 
+  .gallery-slide, 
+  .video-player {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  /* Mobile menu styles removed - handled by mobile-nav-final.css */
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.youtube-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* ========================================
+   COMPREHENSIVE MOBILE RESPONSIVE STYLES
+   FOR FACILITIES PAGE - ALL SCREEN SIZES
+   ======================================== */
+
+/* Tablet (768px - 991px) */
+@media (max-width: 991px) {
+  main {
+    padding-top: 160px;
+  }
+  
+  .facilities-header h1 {
+    font-size: 2.8rem;
+  }
+  
+  .section-title, .showcase-title {
+    font-size: 2.2rem;
+  }
+  
+  .building-grid, .facilities-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .facility-card {
+    height: auto;
+  }
+  
+  .it-lab-features {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (max-width: 767px) {
+  main {
+    padding-top: 140px;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .facilities-header h1 {
+    font-size: 2.3rem;
+  }
+  
+  .facilities-header p {
+    font-size: 1.1rem;
+  }
+  
+  .section-title, .showcase-title {
+    font-size: 2rem;
+  }
+  
+  .building-grid, .facilities-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .building-card, .facility-card {
+    height: auto;
+  }
+  
+  .building-img {
+    height: 220px;
+  }
+  
+  .card-image {
+    height: 280px;
+  }
+  
+  .gallery-slider {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .it-lab-section {
+    padding: 70px 0;
+  }
+  
+  .it-lab-features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .it-lab-gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-item img {
+    height: 250px;
+  }
+}
+
+/* Mobile Small (400px - 575px) */
+@media (max-width: 575px) {
+  main {
+    padding-top: 130px;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .facilities-header {
+    margin-bottom: 40px;
+  }
+  
+  .facilities-header h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .facilities-header h1::after {
+    width: 80px;
+    height: 3px;
+  }
+  
+  .facilities-header p {
+    font-size: 1.05rem;
+  }
+  
+  .section-title, .showcase-title {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+  
+  .building-showcase, .facilities-section {
+    margin: 60px 0;
+  }
+  
+  .building-info, .facility-content {
+    padding: 20px;
+  }
+  
+  .building-info h3, .facility-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .card-content p {
+    font-size: 0.95rem;
+  }
+  
+  .building-img {
+    height: 200px;
+  }
+  
+  .card-image {
+    height: 260px;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    top: -25px;
+    right: 20px;
+  }
+  
+  .gallery-slider {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .it-lab-section {
+    padding: 60px 0;
+  }
+  
+  .feature-card {
+    padding: 25px;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+  
+  .gallery-item img {
+    height: 220px;
+  }
+}
+
+/* Extra Small Mobile (320px - 399px) */
+@media (max-width: 399px) {
+  main {
+    padding-top: 120px;
+  }
+  
+  .container {
+    padding: 0 12px;
+  }
+  
+  .facilities-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .facilities-header h1::after {
+    width: 70px;
+  }
+  
+  .facilities-header p {
+    font-size: 1rem;
+  }
+  
+  .section-title, .showcase-title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .building-showcase, .facilities-section {
+    margin: 50px 0;
+  }
+  
+  .building-info, .facility-content {
+    padding: 18px;
+  }
+  
+  .building-info h3, .facility-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .card-content p {
+    font-size: 0.9rem;
+  }
+  
+  .building-info p, .facility-content p {
+    font-size: 0.95rem;
+  }
+  
+  .building-img {
+    height: 180px;
+  }
+  
+  .card-image {
+    height: 240px;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .card-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
+  .gallery-slider {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .gallery-img {
+    height: 220px;
+  }
+  
+  .it-lab-section {
+    padding: 50px 0;
+  }
+  
+  .feature-card {
+    padding: 20px;
+  }
+  
+  .feature-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.4rem;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+  
+  .gallery-item img {
+    height: 200px;
+  }
+}
+
+/* Hide particles on small screens for performance */
+@media (max-width: 768px) {
+  .particles {
+    opacity: 0.3;
+  }
+  
+  .particle {
+    animation-duration: 10s !important;
+  }
+}
+
+@media (max-width: 399px) {
+  .particles {
+    display: none;
+  }
+}
+
+/* ── Reduced-motion: ensure gallery items are always visible ── */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ── Fallback: force gallery-item visible after animation completes ── */
+.gallery-item {
+  animation-fill-mode: forwards !important;
+}
+
+/* ── Responsive improvements for 75%–90% zoom ── */
+@media (max-width: 1300px) {
+  .building-grid,
+  .facilities-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px;
+  }
+  .it-lab-gallery {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .it-lab-features {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .card-image {
+    height: 280px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  main {
+    padding-top: 160px;
+  }
+  .facilities-header h1 {
+    font-size: 2.5rem;
+  }
+  .section-title,
+  .showcase-title,
+  .gallery-title {
+    font-size: 2rem;
+  }
+  .section-header h2 {
+    font-size: 2.2rem;
+  }
+  .card-image {
+    height: 260px !important;
+  }
+  .gallery-slider {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Ensure nothing overflows horizontally */
+.facilities-section,
+.building-showcase,
+.it-lab-section,
+.gallery-container,
+.laser-enhanced {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+/* ── Mobile: force single column for all grids ── */
+@media (max-width: 600px) {
+  .building-grid,
+  .facilities-grid,
+  .it-lab-gallery,
+  .it-lab-features,
+  .gallery-slider {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .building-card,
+  .facility-card {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .building-img,
+  .card-image {
+    height: 220px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .building-info,
+  .card-content {
+    padding: 16px !important;
+  }
+
+  .building-info h3,
+  .card-content h3 {
+    font-size: 1.1rem !important;
+  }
+
+  .building-info p,
+  .card-content p {
+    font-size: 0.9rem !important;
+  }
+
+  .gallery-img {
+    height: 200px !important;
+  }
+
+  .campus-slide {
+    width: 100% !important;
+  }
+}

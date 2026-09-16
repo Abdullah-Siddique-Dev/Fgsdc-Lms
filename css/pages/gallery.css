@@ -1,0 +1,3606 @@
+@import url('../main.css');
+
+:root {
+    --primary: #6a3093;  /* Purple */
+    --secondary: #004e92; /* Blue */
+    --accent: #f7c744;
+    --bg: #ffffff;
+    --text-dark: #111;
+    --text-light: #fff;
+    --glow: 0 0 15px rgba(247, 199, 68, 0.7);
+    --nav-glow: 0 0 20px rgba(106, 48, 147, 0.6);
+    --green-glow: 0 0 20px rgba(76, 175, 80, 0.5);
+    --green-particle: rgba(76, 175, 80, 0.8);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* Navigation */
+  nav {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 1.5rem 3rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    box-shadow: var(--nav-glow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 3rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    background: rgba(0, 45, 98, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    margin-right: auto;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .logo-img {
+    height: 72px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 60px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+   
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+  }
+
+  .logo-main {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .logo-main::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+
+  .logo-container:hover .logo-main::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .logo-sub {
+    font-size: 1rem;
+    color: var(--accent);
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .logo-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: linear-gradient(45deg, 
+      transparent, 
+      transparent, 
+      rgba(255,255,255,0.2), 
+      transparent, 
+      transparent);
+    transform: translateX(-100%) skewX(-15deg);
+    transition: transform 0.8s ease;
+    z-index: 1;
+  }
+
+  .logo-container:hover::before {
+    transform: translateX(200%) skewX(-15deg);
+  }
+
+  ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 0.8rem;
+    margin-left: auto;
+  }
+
+  ul.nav-links li {
+    position: relative;
+    perspective: 1000px;
+  }
+
+  ul.nav-links li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 10px 12px;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  @media (min-width: 768px) {
+    ul.nav-links {
+      gap: 0.5rem;
+    }
+  }
+
+  /* Mobile nav-links gap removed - using mobile-nav-final.css */
+
+  ul.nav-links li a .nav-icon {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    opacity: 0.9;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  ul.nav-links li a:hover .nav-icon {
+    transform: translateY(-8px) scale(1.1);
+    opacity: 1;
+    color: var(--accent);
+    text-shadow: var(--glow);
+  }
+
+  ul.nav-links li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255,255,255,0.15), 
+      transparent);
+    transform: translateX(-150%) skewX(25deg);
+    transition: transform 0.6s ease;
+  }
+
+  ul.nav-links li a:hover::before {
+    transform: translateX(150%) skewX(25deg);
+  }
+
+  ul.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 0 0 8px 8px;
+  }
+
+  ul.nav-links li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    box-shadow: var(--glow);
+  }
+
+  /* 3D Hover Effect */
+  ul.nav-links li a .nav-text {
+    display: inline-block;
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
+  }
+
+  ul.nav-links li:hover a .nav-text {
+    transform: rotateX(360deg);
+  }
+
+  /* Mobile menu button */
+  .mobile-menu-btn {
+background: none;
+border: none;
+color: white;
+font-size: 2rem;
+cursor: pointer;
+z-index: 1000;
+transition: all 0.4s ease;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.1);
+width: 50px;
+height: 50px;
+display: none; /* Hide by default */
+align-items: center;
+justify-content: center;
+margin-bottom: 10px;
+}
+
+/* Mobile Navigation Styles - REMOVED - Using mobile-nav-final.css instead */
+
+  .mobile-menu-btn:hover {
+    transform: rotate(180deg);
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-text {
+    margin-left: 13px;
+  }
+
+  /* Page Content */
+  .page-content {
+    padding-top: 200px;
+    padding-bottom: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+    box-sizing: border-box;
+  }
+
+  /* Sports Gallery Section */
+  .sports-gallery {
+    padding: 50px clamp(1rem, 3vw, 2rem);
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+    animation: fadeInDown 1s ease;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: var(--accent);
+    box-shadow: var(--glow);
+  }
+
+  .sport-event {
+    margin-bottom: 80px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    border-left: 5px solid var(--accent);
+    animation: fadeInUp 0.8s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .sport-event:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  }
+
+  .event-title {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .event-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+
+  .sport-event:hover .event-title::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .event-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: #555;
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .highlight-text {
+    color: var(--secondary);
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+
+  .highlight-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  .highlight-text:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Video Container */
+  .video-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    position: relative;
+    background: #000;
+    aspect-ratio: 16/9;
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 0 10px rgba(247, 199, 68, 0.3);
+    z-index: 2;
+  }
+
+  .video-play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 0 15px rgba(247, 199, 68, 0.4);
+  }
+
+  .video-play-button i {
+    color: var(--secondary);
+    font-size: 2rem;
+    margin-left: 5px;
+  }
+
+  /* Video Controls */
+  .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .video-container:hover .video-controls {
+    transform: translateY(0);
+  }
+
+  .progress-container {
+    width: 100%;
+    height: 5px;
+    background: rgba(255,255,255,0.2);
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  .controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left-controls, .right-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .control-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .control-btn:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+  }
+
+  .time-display {
+    color: white;
+    font-size: 0.9rem;
+    font-family: monospace;
+  }
+
+  .volume-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .volume-slider {
+    width: 70px;
+    cursor: pointer;
+  }
+
+  .video-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .video-container:hover .video-close-btn {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .video-close-btn:hover {
+    background: rgba(255,0,0,0.7);
+    transform: scale(1.1) !important;
+  }
+
+  /* Image Carousel */
+  .image-carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 30px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: scale(0.95);
+    overflow: visible !important;
+    
+  }
+
+  .carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit:cover; 
+  }
+
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-container:hover .carousel-caption {
+    transform: translateY(0);
+  }
+
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    transform: translateY(-50%);
+    z-index: 5;
+  }
+
+  .carousel-btn {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  .image-carousel:hover .carousel-btn {
+    opacity: 1;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+  }
+
+  .carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .indicator.active {
+    background: var(--accent);
+    transform: scale(1.2);
+  }
+
+  /* Tug of War Image Grid */
+  .tug-of-war-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1600px;
+  }
+
+  .tug-image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: white;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tug-image-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  .tug-image-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .image-caption {
+    padding: 18px 15px;
+    background: white;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    border-top: 3px solid var(--accent);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70px;
+  }
+
+  .position-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 50px auto 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.15));
+    border-radius: 20px;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.2);
+  }
+
+  .position-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--secondary);
+  }
+
+  .position-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 35px;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .position-badge i {
+    font-size: 1.6rem;
+    animation: trophy-bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes trophy-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Simple position text */
+  .simple-position {
+    text-align: center;
+    margin: 30px 0 10px;
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .simple-position strong {
+    color: #ffffff;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 4px 18px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    margin-left: 6px;
+  }
+
+  /* Cricket Image Grid */
+  .cricket-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1200px;
+  }
+
+  .cricket-image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    background: white;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cricket-image-card.featured {
+    grid-column: span 1;
+  }
+
+  .cricket-image-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .cricket-image-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .cricket-image-card .image-caption {
+    padding: 20px;
+    background: white;
+    color: #333;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    border-top: 4px solid var(--accent);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75px;
+  }
+
+  /* ── Cricket Single Layout: text left, image right ── */
+  .cricket-single-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin: 30px 0 40px;
+  }
+
+  .cricket-text-side {
+    flex: 1;
+    padding: 10px 0;
+  }
+
+  .cricket-text-side h4 {
+    font-size: 1.6rem;
+    color: var(--secondary);
+    margin-bottom: 16px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  .cricket-text-side h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .cricket-text-side p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .cricket-text-side ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cricket-text-side ul li {
+    font-size: 1rem;
+    color: #444;
+    padding: 10px 16px;
+    background: rgba(0, 78, 146, 0.05);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    line-height: 1.5;
+  }
+
+  .cricket-image-side {
+    flex: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    background: white;
+  }
+
+  .cricket-image-side img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Carousel inside cricket-image-side */
+  .cricket-image-side .image-carousel {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: none;
+    margin: 0;
+  }
+
+  .cricket-image-side .carousel-container {
+    height: 340px;
+  }
+
+  .cricket-image-side .image-caption {
+    padding: 16px 20px;
+    background: white;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-top: 4px solid var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .cricket-single-layout {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .cricket-image-side img {
+      height: 260px;
+    }
+  }
+
+  /* Teacher Day Section */
+  .teacher-day-section {
+    background: linear-gradient(135deg, rgba(123, 31, 162, 0.05), rgba(103, 58, 183, 0.05));
+    border-radius: 20px;
+    padding: 40px 30px;
+    margin: 60px 0;
+  }
+
+  .teacher-day-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1600px;
+  }
+
+  .teacher-day-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(123, 31, 162, 0.15);
+    background: white;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .teacher-day-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(123, 31, 162, 0.25);
+  }
+
+  .teacher-day-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .teacher-card-caption {
+    padding: 20px;
+    background: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-top: 4px solid #7B1FA2;
+  }
+
+  .teacher-card-caption h4 {
+    color: var(--secondary);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .teacher-card-caption p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .teacher-day-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 50px auto 20px;
+    padding: 28px 40px;
+    background: linear-gradient(135deg, rgba(0, 78, 146, 0.07), rgba(106, 48, 147, 0.07));
+    border-radius: 12px;
+    max-width: 900px;
+    border-left: 5px solid var(--secondary);
+  }
+
+  .teacher-day-message i {
+    display: none;
+  }
+
+  .teacher-day-message p {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--secondary);
+    font-weight: 600;
+    line-height: 1.7;
+    margin: 0;
+    letter-spacing: 0.2px;
+    text-align: center;
+  }
+
+  /* Team Comparison */
+  .team-comparison {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 40px 0;
+  }
+
+  .team-card {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+    animation: fadeIn 1s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+
+  .team-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .team-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .team-info {
+    padding: 20px;
+  }
+
+  .team-name {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .team-name::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .team-card:hover .team-name::after {
+    width: 80px;
+  }
+
+  .team-result {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .winner-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--secondary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+    box-shadow: var(--glow);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Position Indicator */
+  .position-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .position-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .position-badge:hover {
+    transform: scale(1.1) rotate(15deg);
+  }
+
+  .position-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      transparent,
+      transparent,
+      transparent,
+      rgba(255,255,255,0.3)
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+
+  .position-badge.gold {
+    background: linear-gradient(135deg, #FFD700, #D4AF37);
+  }
+
+  .position-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+  }
+
+  .position-badge.bronze {
+    background: linear-gradient(135deg, #CD7F32, #A67C52);
+  }
+
+  .position-label {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 600;
+    position: relative;
+  }
+
+  .position-label::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  .position-label:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Floating Particles */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .particle {
+    position: absolute;
+    background: var(--green-particle);
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+    filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.5));
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* Scroll indicator removed */
+
+  /* Army Visit Section */
+  .army-visit {
+    padding: 50px 2rem;
+    background-color: rgb(239, 239, 255);
+  }
+
+  /* Visit Gallery Grid */
+  .visit-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .visit-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+  }
+
+  .visit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(106, 48, 147, 0.2), rgba(0, 78, 146, 0.2));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
+
+  .visit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2), var(--green-glow);
+  }
+
+  .visit-card:hover::before {
+    opacity: 1;
+  }
+
+  .visit-img-container {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+  }
+
+  .visit-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+
+  .visit-card:hover .visit-img {
+    transform: scale(1.1);
+  }
+
+  .visit-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: 2;
+  }
+
+  .visit-card:hover .visit-overlay {
+    transform: translateY(0);
+  }
+
+  .visit-title {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .visit-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+
+  .visit-card:hover .visit-title::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .visit-description {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .visit-info {
+    padding: 20px;
+  }
+
+  .visit-date {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--secondary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+    box-shadow: var(--glow);
+  }
+
+  /* Green Particles */
+  .green-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .green-particle {
+    position: absolute;
+    background: var(--green-particle);
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+    filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.5));
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .section-title {
+      font-size: 2.2rem;
+    }
+    
+    .event-title {
+      font-size: 1.6rem;
+    }
+    
+    .team-comparison {
+      flex-direction: column;
+    }
+    
+    .visit-gallery {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-content {
+      padding-top: 150px;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .sport-event {
+      padding: 20px;
+    }
+    
+    .video-play-button {
+      width: 60px;
+      height: 60px;
+    }
+    
+    /* Mobile menu styles removed - using mobile-nav-final.css */
+    
+    .logo-img {
+      height: 80px;
+    }
+
+    .carousel-btn {
+      opacity: 1;
+      width: 30px;
+      height: 30px;
+    }
+    
+    .visit-gallery {
+      grid-template-columns: 1fr;
+    }
+    
+    .visit-img-container {
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .event-title {
+      font-size: 1.4rem;
+    }
+    
+    .event-description {
+      font-size: 1rem;
+    }
+    
+    .video-container {
+      margin-bottom: 20px;
+    }
+    
+    .team-card {
+      min-width: 100%;
+    }
+
+    .position-indicator {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .visit-title {
+      font-size: 1.3rem;
+    }
+    
+    .visit-info {
+      padding: 15px;
+    }
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--secondary), var(--primary));
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .b2{
+       
+      object-fit: contain
+  }
+  .custom-cursor {  
+width: 12px;  
+height: 12px;  
+border: 1px solid white;  
+border-radius: 50%;  
+position: fixed;  
+pointer-events: none;  
+z-index: 9999;  
+mix-blend-mode: difference;  
+transform: translate(-50%, -50%);  
+transition: width 0.2s, height 0.2s, border-color 0.2s;  
+}  
+
+/* Hover effects */  
+.custom-cursor.hover {  
+width: 20px;  
+height: 20px;  
+border-color: #6E45E2; 
+ 
+}  
+
+.custom-cursor.click {  
+animation: clickEffect 0.3s ease-out;  
+}  
+
+@keyframes clickEffect {  
+0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }  
+50% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }  
+100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }  
+} 
+
+
+
+
+
+
+
+
+  /*ceremony*/
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+
+  :root {
+      --primary: #6a3093;  /* Purple */
+      --secondary: #004e92;
+    --dark: #d8fffe;
+    --light: #f5f6fa;
+    --gold: #fdcb6e;
+    --silver: #b2bec3;
+    --bronze: #cd6133;
+  }
+  .container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem clamp(1rem, 3vw, 2rem);
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* Laser effects */
+  .laser {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .laser-beam {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 107, 107, 0.3);
+    top: 0;
+    animation: laserScan 8s infinite linear;
+    box-shadow: 0 0 10px 2px var(--primary);
+  }
+
+  .laser-beam:nth-child(2) {
+    left: 33%;
+    animation-delay: 2s;
+    background: rgba(78, 205, 196, 0.3);
+    box-shadow: 0 0 10px 2px var(--secondary);
+  }
+
+  .laser-beam:nth-child(3) {
+    left: 66%;
+    animation-delay: 4s;
+    background: rgba(253, 203, 110, 0.3);
+    box-shadow: 0 0 10px 2px var(--gold);
+  }
+
+  @keyframes laserScan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  /* Header styles */
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255,107,107,0.5); }
+    to { text-shadow: 0 0 20px rgba(78,205,196,0.8), 0 0 30px rgba(253,203,110,0.6); }
+  }
+
+  .header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+
+  /* Award gallery */
+  .award-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .award-item {
+    width: clamp(240px, 28vw, 340px);
+    height: clamp(320px, 35vw, 420px);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .award-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  }
+
+  .award-item-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* flip disabled */
+  }
+
+  .award-item:hover .award-item-inner {
+    transform: none;
+  }
+
+  .award-item-front, .award-item-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Hide the back face — no flip */
+  .award-item-back {
+    display: none;
+  }
+
+  .award-item-front {
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    backface-visibility: visible;
+  }
+
+  .award-item-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  }
+
+  .award-item-front h3 {
+    color: white;
+    padding: 1.5rem;
+    z-index: 1;
+    font-size: 1.5rem;
+  }
+    font-size: 1.5rem;
+  }
+
+  .award-item-back p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .prize {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .prize-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .gold { background: var(--gold); color: var(--dark); }
+  .silver { background: var(--silver); color: var(--dark); }
+  .bronze { background: var(--bronze); color: white; }
+
+  /* Categories section */
+  .categories {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8edf3;
+  }
+
+  .categories h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--secondary);
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 14px;
+  }
+
+  .categories h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1100px) {
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .category-card {
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 1.8rem;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid var(--secondary);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 78, 146, 0.12);
+    background: #ffffff;
+  }
+
+  .category-card h3 {
+    color: var(--secondary);
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .category-card h3::before {
+    content: none;
+  }
+
+  .category-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category-card li {
+    margin-bottom: 0.6rem;
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .category-card li::before {
+    content: '›';
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .urdu-text {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    position: fixed;
+    z-index: 1;
+  }
+
+  .footer p {
+    opacity: 0.7;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .header h1 {
+      font-size: 2rem;
+    }
+
+    .award-item {
+      width: 100%;
+      height: 350px;
+    }
+
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Animation classes */
+  .fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .delay-1 { animation-delay: 0.2s; }
+  .delay-2 { animation-delay: 0.4s; }
+  .delay-3 { animation-delay: 0.6s; }
+
+  .des {
+    color: #444;
+  }
+
+  #desi {
+    background-color: transparent;
+  }
+
+  .resi{
+      color:white;
+  }
+
+
+    /* ===== Orientation Section ===== */
+    .orientation-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1a2a6c 0%, #3a7bd5 100%);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .orientation-title {
+    font-size: 2.8rem;
+    color: #fff;
+    margin-bottom: 60px;
+    position: relative;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .orientation-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: #f7c744;
+    border-radius: 2px;
+    box-shadow: 0 0 15px #f7c744;
+  }
+
+  .orientation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .orientation-card {
+    width: 450px;
+    height: 550px;
+    perspective: 1500px;
+    position: relative;
+  }
+
+  .orientation-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  }
+
+  .orientation-card:hover .orientation-card-inner {
+    transform: none;
+  }
+
+  .orientation-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease, filter 0.8s ease;
+    filter: brightness(0.9) contrast(1.1);
+  }
+
+  .orientation-card:hover .orientation-img {
+    transform: none;
+    filter: none;
+  }
+
+  .orientation-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 30px;
+    text-align: left;
+    transform: none;
+    transition: none;
+    opacity: 1;
+  }
+
+  .orientation-card:hover .orientation-overlay {
+    transform: none;
+    opacity: 1;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  }
+
+  .orientation-caption {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+
+  .orientation-description {
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Floating Particles */
+  .orientation-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .orientation-particle {
+    position: absolute;
+    background: rgba(247, 199, 68, 0.7);
+    border-radius: 50%;
+    animation: float-up 15s infinite linear;
+    filter: drop-shadow(0 0 5px rgba(247, 199, 68, 0.5));
+  }
+
+  .orientation-particle:nth-child(3n) {
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .orientation-particle:nth-child(5n) {
+    background: rgba(106, 48, 147, 0.6);
+  }
+
+  /* Glow Effect */
+  .orientation-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(247, 199, 68, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: pulse 4s infinite alternate;
+    z-index: 0;
+  }
+
+  /* ===== Footer ===== */
+  .holographic-footer {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text-light);
+    padding: 50px 0 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+  }
+
+  .footer-logo img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+  }
+
+  .footer-section h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  .footer-section h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .footer-section ul {
+    list-style: none;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-section ul li i {
+    color: var(--accent);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ===== Custom Cursor ===== */
+  .custom-cursor {  
+    width: 12px;  
+    height: 12px;  
+    border: 1px solid white;  
+    border-radius: 50%;  
+    position: fixed;  
+    pointer-events: none;  
+    z-index: 9999;  
+    mix-blend-mode: difference;  
+    transform: translate(-50%, -50%);  
+    transition: width 0.2s, height 0.2s, border-color 0.2s;  
+  }  
+
+  .custom-cursor.hover {  
+    width: 20px;  
+    height: 20px;  
+    border-color: #6E45E2; 
+  }  
+
+  .custom-cursor.click {  
+    animation: clickEffect 0.3s ease-out;  
+  }  
+
+  /* ===== Animations ===== */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes laserScan {
+    0% { 
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255,107,107,0.5); }
+    to { text-shadow: 0 0 20px rgba(78,205,196,0.8), 0 0 30px rgba(253,203,110,0.6); }
+  }
+
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) translateX(100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes clickEffect {  
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }  
+    50% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }  
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }  
+  } 
+
+  /* ===== Responsive Styles ===== */
+  @media (max-width: 1200px) {
+    .section-title {
+      font-size: 2.2rem;
+    }
+    
+    .event-title {
+      font-size: 1.6rem;
+    }
+    
+    .team-comparison {
+      flex-direction: column;
+    }
+    
+    .visit-gallery {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    .orientation-title {
+      font-size: 2.4rem;
+    }
+    
+    .orientation-card {
+      width: 400px;
+      height: 500px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .footer-container {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .award-item {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .logo-main {
+  font-size: 1.8rem !important;
+}
+.logo-sub {
+  font-size: 0.9rem !important;
+}
+  }
+
+  @media (max-width: 768px) {
+    .page-content {
+      padding-top: 150px;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .sport-event {
+      padding: 20px;
+    }
+    
+    .video-play-button {
+      width: 60px;
+      height: 60px;
+    }
+    
+    /* Mobile menu styles removed - using mobile-nav-final.css */
+    
+    .logo-img {
+      height: 80px;
+    }
+    .logo-main {
+      font-size: 1.5rem !important;
+    }
+    .logo-sub {
+      font-size: 0.8rem !important;
+    }
+
+    .carousel-btn {
+      opacity: 1;
+      width: 30px;
+      height: 30px;
+    }
+    
+    .visit-gallery {
+      grid-template-columns: 1fr;
+    }
+    
+    .visit-img-container {
+      height: 200px;
+    }
+    
+    .header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .orientation-title {
+      font-size: 2rem;
+    }
+    
+    .orientation-card {
+      width: 350px;
+      height: 450px;
+    }
+    
+    .orientation-caption {
+      font-size: 1.3rem;
+    }
+    
+    .orientation-description {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+
+    .logo-main {
+    font-size: 1.2rem !important;
+     }
+  .logo-sub {
+    font-size: 0.7rem !important;
+    }
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .event-title {
+      font-size: 1.4rem;
+    }
+    
+    .event-description {
+      font-size: 1rem;
+    }
+    
+    .video-container {
+      margin-bottom: 20px;
+    }
+    
+    .team-card {
+      min-width: 100%;
+    }
+
+    .position-indicator {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .visit-title {
+      font-size: 1.3rem;
+    }
+    
+    .visit-info {
+      padding: 15px;
+    }
+    
+    .footer-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+      font-size: 1.8rem;
+    }
+    
+    .orientation-card {
+      width: 100%;
+      height: 400px;
+    }
+    
+    .orientation-overlay {
+      padding: 20px;
+    }
+  }
+
+
+  
+
+
+/* ========================================
+   COMPREHENSIVE MOBILE RESPONSIVE STYLES
+   FOR GALLERY PAGE - ALL SCREEN SIZES
+   ======================================== */
+
+/* Large Desktop (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .tug-of-war-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  
+  .tug-image-card img {
+    height: 260px;
+  }
+  
+  .image-caption {
+    font-size: 0.9rem;
+    padding: 15px 12px;
+    min-height: 65px;
+  }
+  
+  .cricket-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  
+  .cricket-image-card img {
+    height: 380px;
+  }
+  
+  .teacher-day-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+  
+  .teacher-day-card img {
+    height: 300px;
+  }
+}
+
+/* Laptop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .page-content {
+    padding-top: 180px;
+  }
+  
+  .section-title {
+    font-size: 2.3rem;
+  }
+  
+  .event-title {
+    font-size: 1.7rem;
+  }
+  
+  .tug-of-war-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  
+  .tug-image-card img {
+    height: 280px;
+  }
+  
+  .image-caption {
+    font-size: 0.9rem;
+    padding: 15px 10px;
+    min-height: 65px;
+  }
+  
+  .cricket-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .cricket-image-card img {
+    height: 360px;
+  }
+  
+  .teacher-day-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .teacher-day-card img {
+    height: 280px;
+  }
+  
+  .teacher-day-message {
+    padding: 25px;
+  }
+  
+  .teacher-day-message p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .page-content {
+    padding-top: 160px;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .sport-event {
+    padding: 25px;
+  }
+  
+  .event-title {
+    font-size: 1.6rem;
+  }
+  
+  .event-description {
+    font-size: 1.05rem;
+  }
+  
+  .video-container {
+    max-width: 90%;
+  }
+  
+  .image-carousel {
+    max-width: 90%;
+  }
+  
+  .tug-of-war-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 18px;
+  }
+  
+  .tug-image-card img {
+    height: 260px;
+  }
+  
+  .image-caption {
+    font-size: 0.9rem;
+    padding: 15px 10px;
+    min-height: 60px;
+  }
+  
+  .cricket-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  
+  .cricket-image-card img {
+    height: 300px;
+  }
+  
+  .teacher-day-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 0 15px;
+  }
+  
+  .teacher-day-card img {
+    height: 320px;
+  }
+  
+  .teacher-day-card img {
+    height: 260px;
+  }
+  
+  .teacher-day-message {
+    flex-direction: column;
+    padding: 22px 18px;
+    text-align: center;
+  }
+  
+  .teacher-day-message i {
+    font-size: 2rem;
+  }
+  
+  .teacher-day-message p {
+    font-size: 1.05rem;
+  }
+  
+  .visit-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .page-content {
+    padding-top: 140px;
+    padding-bottom: 40px;
+  }
+  
+  .sports-gallery, .army-visit {
+    padding: 40px 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .section-title::after {
+    width: 120px;
+  }
+  
+  .sport-event {
+    padding: 22px;
+    margin-bottom: 60px;
+  }
+  
+  .event-title {
+    font-size: 1.5rem;
+  }
+  
+  .event-description {
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+  }
+  
+  .video-container {
+    max-width: 95%;
+    margin-bottom: 35px;
+  }
+  
+  .video-play-button {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .video-play-button i {
+    font-size: 1.7rem;
+  }
+  
+  .image-carousel {
+    max-width: 95%;
+    margin: 25px auto;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    opacity: 1;
+  }
+  
+  .team-comparison {
+    gap: 25px;
+  }
+  
+  .team-card {
+    min-width: 100%;
+  }
+  
+  .team-card img {
+    height: 220px;
+  }
+  
+  .position-indicator {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .position-badge {
+    width: 55px;
+    height: 55px;
+    font-size: 1.3rem;
+  }
+  
+  .visit-gallery {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .visit-img-container {
+    height: 220px;
+  }
+  
+  .tug-of-war-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+  }
+  
+  .tug-image-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .tug-image-card img {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+  }
+  
+  .image-caption {
+    font-size: 0.9rem;
+    padding: 14px 10px;
+    min-height: 60px;
+  }
+  
+  .cricket-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 10px !important;
+  }
+  
+  .cricket-image-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .cricket-image-card img {
+    height: 280px !important;
+  }
+  
+  .cricket-image-card .image-caption {
+    font-size: 0.95rem;
+    padding: 16px;
+  }
+  
+  .position-indicator {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .position-label {
+    font-size: 1.1rem;
+  }
+  
+  .position-badge {
+    font-size: 1rem;
+    padding: 12px 25px;
+  }
+  
+  .teacher-day-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 15px;
+  }
+  
+  .teacher-day-card {
+    max-width: 100%;
+  }
+  
+  .teacher-day-card img {
+    height: 350px;
+    object-fit: cover;
+  }
+  
+  .teacher-day-section {
+    padding: 30px 15px;
+    margin: 40px 0;
+  }
+  
+  .teacher-day-message {
+    flex-direction: column;
+    padding: 20px 15px;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .teacher-day-message i {
+    font-size: 2rem;
+  }
+  
+  .teacher-day-message p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+}
+
+/* Mobile Small (400px - 575px) */
+@media (min-width: 400px) and (max-width: 575px) {
+  .page-content {
+    padding-top: 130px;
+    padding-bottom: 35px;
+  }
+  
+  .sports-gallery, .army-visit {
+    padding: 35px 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 1.85rem;
+    margin-bottom: 35px;
+  }
+  
+  .section-title::after {
+    width: 110px;
+    height: 2.5px;
+  }
+  
+  .sport-event {
+    padding: 20px;
+    margin-bottom: 55px;
+    border-radius: 15px;
+  }
+  
+  .event-title {
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+  }
+  
+  .event-description {
+    font-size: 1rem;
+    margin-bottom: 22px;
+    line-height: 1.7;
+  }
+  
+  .video-container {
+    max-width: 98%;
+    margin-bottom: 30px;
+  }
+  
+  .video-play-button {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .video-play-button i {
+    font-size: 1.6rem;
+  }
+  
+  .video-controls {
+    padding: 8px;
+  }
+  
+  .control-btn {
+    font-size: 0.9rem;
+  }
+  
+  .time-display {
+    font-size: 0.8rem;
+  }
+  
+  .volume-slider {
+    width: 50px;
+  }
+  
+  .image-carousel {
+    max-width: 98%;
+    margin: 22px auto;
+  }
+  
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    opacity: 1;
+  }
+  
+  .carousel-caption {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  
+  .indicator {
+    width: 9px;
+    height: 9px;
+  }
+  
+  .team-comparison {
+    gap: 20px;
+  }
+  
+  .team-card {
+    min-width: 100%;
+  }
+  
+  .team-card img {
+    height: 200px;
+  }
+  
+  .team-info {
+    padding: 18px;
+  }
+  
+  .team-name {
+    font-size: 1.4rem;
+  }
+  
+  .team-result {
+    font-size: 1.1rem;
+  }
+  
+  .position-indicator {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .position-badge {
+    width: 52px;
+    height: 52px;
+    font-size: 1.2rem;
+  }
+  
+  .position-label {
+    font-size: 1.1rem;
+  }
+  
+  .visit-gallery {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  
+  .visit-img-container {
+    height: 200px;
+  }
+  
+  .visit-info {
+    padding: 18px;
+  }
+  
+  .visit-title {
+    font-size: 1.4rem;
+  }
+  
+  .visit-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Mobile (320px - 399px) */
+@media (max-width: 399px) {
+  .page-content {
+    padding-top: 120px;
+    padding-bottom: 30px;
+  }
+  
+  .sports-gallery, .army-visit {
+    padding: 30px 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+  }
+  
+  .section-title::after {
+    width: 100px;
+    height: 2px;
+  }
+  
+  .teacher-day-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .teacher-day-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .teacher-day-card img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  
+  .sport-event {
+    padding: 18px;
+    margin-bottom: 50px;
+    border-radius: 12px;
+  }
+  
+  .event-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  .event-description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .video-container {
+    max-width: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .video-play-button {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .video-play-button i {
+    font-size: 1.4rem;
+  }
+  
+  .video-controls {
+    padding: 6px;
+  }
+  
+  .progress-container {
+    height: 4px;
+    margin-bottom: 6px;
+  }
+  
+  .control-btn {
+    font-size: 0.8rem;
+  }
+  
+  .time-display {
+    font-size: 0.7rem;
+  }
+  
+  .volume-slider {
+    width: 40px;
+  }
+  
+  .video-close-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+  
+  .image-carousel {
+    max-width: 100%;
+    margin: 20px auto;
+  }
+  
+  .carousel-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+    opacity: 1;
+  }
+  
+  .carousel-caption {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .team-comparison {
+    gap: 18px;
+  }
+  
+  .team-card img {
+    height: 180px;
+  }
+  
+  .team-info {
+    padding: 15px;
+  }
+  
+  .team-name {
+    font-size: 1.3rem;
+  }
+  
+  .team-result {
+    font-size: 1rem;
+  }
+  
+  .winner-badge {
+    padding: 4px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .position-indicator {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .position-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
+  }
+  
+  .position-label {
+    font-size: 1rem;
+  }
+  
+  .visit-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .visit-img-container {
+    height: 180px;
+  }
+  
+  .visit-info {
+    padding: 15px;
+  }
+  
+  .visit-title {
+    font-size: 1.3rem;
+  }
+  
+  .visit-description {
+    font-size: 0.85rem;
+  }
+  
+  .visit-date {
+    padding: 4px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media (max-width: 319px) {
+  .page-content {
+    padding-top: 110px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .event-title {
+    font-size: 1.2rem;
+  }
+  
+  .event-description {
+    font-size: 0.9rem;
+  }
+  
+  .video-play-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .video-play-button i {
+    font-size: 1.2rem;
+  }
+  
+  .team-card img {
+    height: 160px;
+  }
+  
+  .visit-img-container {
+    height: 160px;
+  }
+}
+
+/* Hide custom cursor on mobile */
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+  .particles {
+    opacity: 0.3;
+  }
+  
+  .particle, .green-particle {
+    animation-duration: 10s !important;
+  }
+}
+
+@media (max-width: 399px) {
+  .particles, .green-particles {
+    display: none;
+  }
+}
+
+
+/* Force Teacher Day Grid to be responsive on ALL mobile devices */
+@media (max-width: 991px) {
+  .teacher-day-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+  }
+  
+  .teacher-day-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .teacher-day-card img {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    object-fit: cover !important;
+  }
+}
+
+
+/* Force Tug of War Grid to be responsive on ALL mobile and tablet devices */
+@media (max-width: 991px) {
+  .sport-event .tug-of-war-grid,
+  .tug-of-war-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+    max-width: 100% !important;
+  }
+  
+  .tug-of-war-grid .tug-image-card,
+  .tug-image-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+  
+  .tug-of-war-grid .tug-image-card img,
+  .tug-image-card img {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+  }
+}
+
+/* Cricket Grid responsive */
+@media (max-width: 991px) {
+  .sport-event .cricket-grid,
+  .cricket-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+    max-width: 100% !important;
+  }
+  
+  .cricket-grid .cricket-image-card,
+  .cricket-image-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+  
+  .cricket-grid .cricket-image-card img,
+  .cricket-image-card img {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+  }
+}
+
+/* ── Responsive fixes for 75%–90% zoom (approx 1024px–1400px) ── */
+
+/* Tug of war: 5 cols is too many at mid widths */
+@media (max-width: 1400px) {
+  .tug-of-war-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .teacher-day-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .tug-of-war-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .teacher-day-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .sport-event {
+    padding: 25px 20px;
+  }
+  .cricket-single-layout {
+    gap: 24px;
+  }
+  .cricket-image-side img {
+    height: 300px;
+  }
+  .award-item {
+    width: clamp(200px, 40vw, 300px);
+    height: clamp(280px, 38vw, 380px);
+  }
+}
+
+@media (max-width: 900px) {
+  .tug-of-war-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .teacher-day-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .cricket-single-layout {
+    flex-direction: column;
+  }
+  .award-gallery {
+    gap: 1.2rem;
+  }
+  .award-item {
+    width: clamp(180px, 45vw, 280px);
+    height: clamp(260px, 42vw, 360px);
+  }
+}
+
+/* Ensure page-content never overflows */
+.page-content,
+.sports-gallery,
+.army-visit,
+.categories,
+.container {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+
+/* ── Teacher Day Carousel ── */
+.teacher-day-carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 30px auto 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  background: white;
+}
+
+.teacher-carousel-track {
+  position: relative;
+  width: 100%;
+}
+
+.teacher-carousel-slide {
+  display: none;
+  flex-direction: column;
+}
+
+.teacher-carousel-slide.active {
+  display: flex;
+}
+
+.teacher-carousel-slide img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.teacher-carousel-slide .teacher-card-caption {
+  padding: 20px 24px;
+  background: white;
+  border-top: 4px solid #7B1FA2;
+  text-align: center;
+}
+
+.teacher-carousel-slide .teacher-card-caption h4 {
+  color: var(--secondary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.teacher-carousel-slide .teacher-card-caption p {
+  color: #666;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* Arrows */
+.teacher-carousel-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--secondary);
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.teacher-carousel-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.teacher-carousel-btn.prev { left: 12px; }
+.teacher-carousel-btn.next { right: 12px; }
+
+/* Dots */
+.teacher-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0 16px;
+  background: white;
+}
+
+.teacher-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.teacher-dot.active {
+  background: #7B1FA2;
+  transform: scale(1.3);
+}
+
+@media (max-width: 600px) {
+  .teacher-carousel-slide img {
+    height: 260px;
+  }
+}
+
+/* ── Award Categories: 1 column on mobile ── */
+@media (max-width: 600px) {
+  .category-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .category-card {
+    width: 100% !important;
+    padding: 20px !important;
+  }
+
+  .category-card h3 {
+    font-size: 1rem !important;
+  }
+
+  .category-card li {
+    font-size: 0.9rem !important;
+  }
+
+  .categories {
+    padding: 24px 16px !important;
+  }
+
+  .categories h2 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ── Teacher Day Grid: 4 cols desktop, 2 cols mobile ── */
+.teacher-day-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  margin: 30px 0 !important;
+}
+
+.teacher-day-card {
+  background: white !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.teacher-day-card img {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  display: block !important;
+}
+
+.teacher-day-card .teacher-card-caption {
+  padding: 14px 16px !important;
+  background: white !important;
+  border-top: 3px solid #7B1FA2 !important;
+  text-align: center !important;
+  flex: 1 !important;
+}
+
+.teacher-day-card .teacher-card-caption h4 {
+  color: var(--secondary) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 5px !important;
+}
+
+.teacher-day-card .teacher-card-caption p {
+  color: #666 !important;
+  font-size: 0.82rem !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .teacher-day-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 480px) {
+  .teacher-day-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .teacher-day-card img {
+    height: 240px !important;
+  }
+}
+
+/* ── Teacher Day: show full picture ── */
+.teacher-day-card img {
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #f5f5f5 !important;
+  height: auto !important;
+  max-height: 320px !important;
+}
+
+/* ── Disable all laser effects ── */
+.laser,
+.laser-beam {
+  display: none !important;
+  animation: none !important;
+}

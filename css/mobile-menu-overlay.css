@@ -1,0 +1,76 @@
+/* ============================================
+   MOBILE MENU OVERLAY - SEPARATE SOLUTION
+   Creates a new layer above everything
+   ============================================ */
+
+@media (max-width: 768px) {
+  
+  /* Hide placeholder when menu is moved */
+  #navLinks-placeholder {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+  }
+  
+  /* When menu is at body level (moved), give it maximum z-index */
+  body > .nav-links,
+  body > #navLinks {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    isolation: isolate !important;
+  }
+  
+  /* Force menu container to new stacking context when open */
+  body.menu-open .nav-links,
+  body.menu-open #navLinks,
+  body.menu-open > .nav-links,
+  body.menu-open > #navLinks {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    isolation: isolate !important;
+  }
+  
+  /* Force button to new stacking context */
+  body.menu-open .mobile-menu-btn,
+  body.menu-open #mobileMenuBtn {
+    position: relative !important;
+    z-index: 2147483647 !important;
+  }
+  
+  /* Ensure menu items are visible */
+  body.menu-open .nav-links li,
+  body.menu-open #navLinks li,
+  body > .nav-links li,
+  body > #navLinks li {
+    position: relative !important;
+    z-index: 2147483647 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  body.menu-open .nav-links li a,
+  body.menu-open #navLinks li a,
+  body > .nav-links li a,
+  body > #navLinks li a {
+    position: relative !important;
+    z-index: 2147483647 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Dark overlay */
+  body.menu-open::after {
+    content: '' !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 2147483646 !important;
+    pointer-events: none !important;
+  }
+}
